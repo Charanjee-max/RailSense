@@ -178,3 +178,15 @@ RailSense will always follow these principles:
 | Version | Date | Author | Description |
 |---------|------------|------------|--------------------------------|
 | 1.0 | 21 July 2026 | Charan Jee | Initial PRD for RailSense |
+
+# 12. Initial Database Design
+
+The first version of RailSense will include the following database tables:
+
+- Stations
+- Trains
+- Routes
+- Quotas
+- Historical_Waitlist
+- Predictions
+- Users (Future)
