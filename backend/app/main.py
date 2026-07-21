@@ -20,3 +20,14 @@ def db_test():
         return {"status": "Database Connected Successfully ✅"}
     except Exception as e:
         return {"error": str(e)}
+    from fastapi import FastAPI
+from app.api.station_routes import router as station_router
+
+app = FastAPI(title="RailSense API")
+
+app.include_router(station_router)
+
+
+@app.get("/")
+def home():
+    return {"message": "Welcome to RailSense API"}
