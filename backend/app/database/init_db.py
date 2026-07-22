@@ -3,6 +3,7 @@ from app.database.database import engine, Base
 # Import all models
 from app.models.station import Station
 from app.models.train import Train
+from app.models.route import Route
 
 print("Creating database tables...")
 

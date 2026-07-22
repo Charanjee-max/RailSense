@@ -3,6 +3,7 @@ from app.database.database import engine
 
 from app.api.station_routes import router as station_router
 from app.api.train_routes import router as train_router
+from app.api.route_routes import router as route_router
 
 app = FastAPI(
     title="RailSense API",
@@ -11,6 +12,7 @@ app = FastAPI(
 
 app.include_router(station_router)
 app.include_router(train_router)
+app.include_router(route_router)
 
 
 @app.get("/")
@@ -25,6 +27,10 @@ def db_test():
     try:
         connection = engine.connect()
         connection.close()
-        return {"status": "Database Connected Successfully ✅"}
+        return {
+            "status": "Database Connected Successfully ✅"
+        }
     except Exception as e:
-        return {"error": str(e)}
+        return {
+            "error": str(e)
+        }
