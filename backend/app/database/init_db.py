@@ -2,6 +2,7 @@ from app.database.database import engine, Base
 
 # Import all models
 from app.models.station import Station
+from app.models.train import Train
 
 print("Creating database tables...")
 

@@ -1,16 +1,24 @@
 from fastapi import FastAPI
 from app.database.database import engine
 
+from app.api.station_routes import router as station_router
+from app.api.train_routes import router as train_router
+
 app = FastAPI(
     title="RailSense API",
     version="1.0.0"
 )
 
+app.include_router(station_router)
+app.include_router(train_router)
+
+
 @app.get("/")
 def home():
     return {
-        "message": "Welcome to RailSense API 🚆"
+        "message": "Welcome to RailSense API"
     }
+
 
 @app.get("/db-test")
 def db_test():
@@ -20,14 +28,3 @@ def db_test():
         return {"status": "Database Connected Successfully ✅"}
     except Exception as e:
         return {"error": str(e)}
-    from fastapi import FastAPI
-from app.api.station_routes import router as station_router
-
-app = FastAPI(title="RailSense API")
-
-app.include_router(station_router)
-
-
-@app.get("/")
-def home():
-    return {"message": "Welcome to RailSense API"}
