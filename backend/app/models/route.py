@@ -7,10 +7,17 @@ class Route(Base):
     __tablename__ = "routes"
 
     RouteID = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+
     TrainNumber = Column(String, nullable=False)
     StationCode = Column(String, nullable=False)
+
     StationSequence = Column(Integer, nullable=False)
+
     ArrivalTime = Column(String)
     DepartureTime = Column(String)
-    Distance = Column(Integer)
+
+    Distance = Column(Integer, default=0)
+
+    IsSource = Column(Boolean, default=False)
+    IsDestination = Column(Boolean, default=False)
     IsTechnicalStop = Column(Boolean, default=False)

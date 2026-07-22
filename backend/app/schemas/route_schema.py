@@ -7,7 +7,9 @@ class RouteCreate(BaseModel):
     StationSequence: int
     ArrivalTime: str
     DepartureTime: str
-    Distance: int
+    Distance: int = 0
+    IsSource: bool = False
+    IsDestination: bool = False
     IsTechnicalStop: bool = False
 
 
