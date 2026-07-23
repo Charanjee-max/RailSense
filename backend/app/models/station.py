@@ -9,7 +9,7 @@ class Station(Base):
     __tablename__ = "stations"
 
     StationID = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    StationCode = Column(String(10), unique=True, nullable=False)
+    StationCode = Column(String(20), unique=True, nullable=False)
     StationName = Column(String(100), nullable=False)
     State = Column(String(50))
     RailwayZone = Column(String(20))

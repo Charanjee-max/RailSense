@@ -17,6 +17,7 @@ class Route(Base):
     DepartureTime = Column(String)
 
     Distance = Column(Integer, default=0)
+    DayNumber = Column(Integer, default=1)
 
     IsSource = Column(Boolean, default=False)
     IsDestination = Column(Boolean, default=False)

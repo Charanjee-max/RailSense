@@ -8,6 +8,7 @@ class RouteCreate(BaseModel):
     ArrivalTime: str
     DepartureTime: str
     Distance: int = 0
+    DayNumber: int = 1
     IsSource: bool = False
     IsDestination: bool = False
     IsTechnicalStop: bool = False
