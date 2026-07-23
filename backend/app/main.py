@@ -4,6 +4,7 @@ from app.database.database import engine
 from app.api.station_routes import router as station_router
 from app.api.train_routes import router as train_router
 from app.api.route_routes import router as route_router
+from app.api.search_routes import router as search_router
 
 app = FastAPI(
     title="RailSense API",
@@ -13,6 +14,7 @@ app = FastAPI(
 app.include_router(station_router)
 app.include_router(train_router)
 app.include_router(route_router)
+app.include_router(search_router)
 
 
 @app.get("/")
