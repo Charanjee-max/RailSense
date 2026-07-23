@@ -9,7 +9,7 @@ class Train(Base):
     __tablename__ = "trains"
 
     TrainID = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    TrainNumber = Column(String(10), unique=True, nullable=False)
+    TrainNumber = Column(String(20), unique=True, nullable=False)
     TrainName = Column(String(100), nullable=False)
     TrainType = Column(String(50))
     RailwayZone = Column(String(20))
