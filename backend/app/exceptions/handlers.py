@@ -2,11 +2,12 @@ from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 
+from app.core.logger import logger
+
 from app.exceptions.custom_exceptions import (
     BadRequestException,
     ConflictException,
     ForbiddenException,
-    RailSenseException,
     ResourceNotFoundException,
     UnauthorizedException,
 )
@@ -19,6 +20,10 @@ def register_exception_handlers(app: FastAPI):
         request: Request,
         exc: ResourceNotFoundException,
     ):
+        logger.warning(
+            f"404 Not Found | {request.method} {request.url.path} | {exc.message}"
+        )
+
         return JSONResponse(
             status_code=404,
             content={
@@ -32,6 +37,10 @@ def register_exception_handlers(app: FastAPI):
         request: Request,
         exc: BadRequestException,
     ):
+        logger.warning(
+            f"400 Bad Request | {request.method} {request.url.path} | {exc.message}"
+        )
+
         return JSONResponse(
             status_code=400,
             content={
@@ -45,6 +54,10 @@ def register_exception_handlers(app: FastAPI):
         request: Request,
         exc: UnauthorizedException,
     ):
+        logger.warning(
+            f"401 Unauthorized | {request.method} {request.url.path} | {exc.message}"
+        )
+
         return JSONResponse(
             status_code=401,
             content={
@@ -58,6 +71,10 @@ def register_exception_handlers(app: FastAPI):
         request: Request,
         exc: ForbiddenException,
     ):
+        logger.warning(
+            f"403 Forbidden | {request.method} {request.url.path} | {exc.message}"
+        )
+
         return JSONResponse(
             status_code=403,
             content={
@@ -71,6 +88,10 @@ def register_exception_handlers(app: FastAPI):
         request: Request,
         exc: ConflictException,
     ):
+        logger.warning(
+            f"409 Conflict | {request.method} {request.url.path} | {exc.message}"
+        )
+
         return JSONResponse(
             status_code=409,
             content={
@@ -84,6 +105,10 @@ def register_exception_handlers(app: FastAPI):
         request: Request,
         exc: RequestValidationError,
     ):
+        logger.warning(
+            f"422 Validation Error | {request.method} {request.url.path}"
+        )
+
         return JSONResponse(
             status_code=422,
             content={
@@ -98,6 +123,10 @@ def register_exception_handlers(app: FastAPI):
         request: Request,
         exc: Exception,
     ):
+        logger.exception(
+            f"500 Internal Server Error | {request.method} {request.url.path}"
+        )
+
         return JSONResponse(
             status_code=500,
             content={
