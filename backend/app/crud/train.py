@@ -5,6 +5,28 @@ from app.models.train_running_days import TrainRunningDays
 from app.models.train_stop import TrainStop
 
 
+def create_train(
+    db: Session,
+    train,
+):
+    db_train = Train(**train.model_dump())
+
+    db.add(db_train)
+    db.commit()
+    db.refresh(db_train)
+
+    return db_train
+
+
+def get_all_trains(
+    db: Session,
+):
+    return (
+        db.query(Train)
+        .all()
+    )
+
+
 def search_trains(
     db: Session,
     number: str | None = None,

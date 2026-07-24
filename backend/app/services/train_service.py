@@ -1,6 +1,8 @@
 from sqlalchemy.orm import Session
 
 from app.crud.train import (
+    create_train,
+    get_all_trains,
     search_trains,
     get_train_by_number,
     get_running_days,
@@ -8,12 +10,34 @@ from app.crud.train import (
 )
 
 
+def create_train_service(
+    db: Session,
+    train,
+):
+    return create_train(
+        db=db,
+        train=train,
+    )
+
+
+def get_all_trains_service(
+    db: Session,
+):
+    return get_all_trains(
+        db=db,
+    )
+
+
 def search_train_service(
     db: Session,
     number: str | None = None,
     name: str | None = None,
 ):
-    return search_trains(db, number, name)
+    return search_trains(
+        db=db,
+        number=number,
+        name=name,
+    )
 
 
 def get_train_details(

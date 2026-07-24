@@ -5,10 +5,15 @@ from sqlalchemy.orm import Session
 
 from app.database.dependencies import get_db
 
-from app.schemas.train import TrainResponse
+from app.schemas.train import (
+    TrainCreate,
+    TrainResponse,
+)
 from app.schemas.train_detail import TrainDetailResponse
 
 from app.services.train_service import (
+    create_train_service,
+    get_all_trains_service,
     search_train_service,
     get_train_details,
 )
@@ -19,9 +24,35 @@ router = APIRouter(
 )
 
 
+@router.post(
+    "/",
+    response_model=TrainResponse,
+)
+def create_train(
+    train: TrainCreate,
+    db: Session = Depends(get_db),
+):
+    return create_train_service(
+        db=db,
+        train=train,
+    )
+
+
+@router.get(
+    "/",
+    response_model=List[TrainResponse],
+)
+def get_all_trains(
+    db: Session = Depends(get_db),
+):
+    return get_all_trains_service(
+        db=db,
+    )
+
+
 @router.get(
     "/search",
-    response_model=List[TrainResponse]
+    response_model=List[TrainResponse],
 )
 def search_trains(
     number: str | None = Query(None),
@@ -37,19 +68,21 @@ def search_trains(
 
 @router.get(
     "/{train_number}",
-    response_model=TrainDetailResponse
+    response_model=TrainDetailResponse,
 )
 def get_train(
     train_number: str,
     db: Session = Depends(get_db),
 ):
-
-    train = get_train_details(db, train_number)
+    train = get_train_details(
+        db=db,
+        train_number=train_number,
+    )
 
     if not train:
         raise HTTPException(
             status_code=404,
-            detail="Train not found"
+            detail="Train not found.",
         )
 
     return train
