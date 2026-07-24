@@ -9,6 +9,10 @@ from app.crud.train import (
     get_total_stops,
 )
 
+from app.exceptions.custom_exceptions import (
+    ResourceNotFoundException,
+)
+
 
 def create_train_service(
     db: Session,
@@ -47,7 +51,9 @@ def get_train_details(
     train = get_train_by_number(db, train_number)
 
     if not train:
-        return None
+        raise ResourceNotFoundException(
+            f"Train '{train_number}' not found."
+        )
 
     running = get_running_days(db, train_number)
 

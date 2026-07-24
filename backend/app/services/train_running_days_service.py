@@ -6,10 +6,14 @@ from app.crud.train_running_days import (
     get_running_days_by_train,
 )
 
+from app.exceptions.custom_exceptions import (
+    ResourceNotFoundException,
+)
+
 
 def create_running_days_service(
     db: Session,
-    data
+    data,
 ):
     return create_running_days(
         db=db,
@@ -29,7 +33,14 @@ def get_running_days_by_train_service(
     db: Session,
     train_number: str,
 ):
-    return get_running_days_by_train(
+    running_days = get_running_days_by_train(
         db=db,
         train_number=train_number,
     )
+
+    if not running_days:
+        raise ResourceNotFoundException(
+            f"Running days not found for train '{train_number}'."
+        )
+
+    return running_days
